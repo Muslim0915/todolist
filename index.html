@@ -13,7 +13,7 @@
 <div id="modal" class="modal">
     <div class="modal__container">
         <div class="modal-head">
-            <div class="modal-head__title">Задача на сегодня <span>[Создание]</span></div>
+            <div class="modal-head__title">Задача на сегодня <span class="create">[Создание]</span></div>
             <button class="modal-close__btn" ></button>
 
         </div>
@@ -21,10 +21,10 @@
         <form action="#">
             <div class="form-control">
                 <label for="input__text">Название</label>
-                <input type="text" class="input" id="input__text" placeholder="Введите текст">
+                <input type="text" class="input creating" id="input__text" placeholder="Введите текст">
             </div>
             <div class="form-control">
-                <button id="delete__button">Удалить</button>
+                <button class="delete__button" id="delete__button">Удалить</button>
                 <button id="save__button">Сохранить</button>
             </div>
         </form>
@@ -52,6 +52,5 @@
     </div>
 </section>
 <script src="js/index.js"></script>
-<!--<script src="js/todos.js"></script>-->
 </body>
 </html>

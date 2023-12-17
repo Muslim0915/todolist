@@ -33,7 +33,7 @@ window.addEventListener('DOMContentLoaded',()=>{
     createButton.addEventListener("click", () => {
         modalOpen();
         editingElement = null;
-        deleteButton.style.display = 'none';
+        deleteButton.classList.add('hidden');
         if (!isEditMode) {
             inputText.value = ''; // Clear the input field only if not in edit mode
         }
@@ -70,21 +70,24 @@ window.addEventListener('DOMContentLoaded',()=>{
             modalClose();
             editingElement = null;
             isEditMode = false; // Reset edit mode flag
-            inputText.value = ''; // Clear the input field
+            inputText.value =  ''; // Clear the input field
         }
     });
 
 todolist.addEventListener("click", (event) => {
 
     if (event.target.classList.contains("edit")) {
-        console.log(event.target.closest('.form-control .input'));
         editingElement = event.target.parentNode;
+        inputText.value = editingElement.querySelector("span").textContent;
         modalOpen();
-        deleteButton.style.display = 'block';
+        deleteButton.classList.remove('hidden');
         const span = document.querySelector(".modal-head__title span");
         span.textContent = "[Редактирование]";
-        span.style.color = '#F4C959';
+        span.classList.add('edit');
+        span.classList.remove('create');
         isEditMode = true; // Set edit mode flag
+        inputText.classList.add('editing');
+        inputText.classList.remove('creating');
     }
 });
 
@@ -93,9 +96,9 @@ todolist.addEventListener("click", (event) => {
     modal.addEventListener("click", (e) => {
         if (e.target === modal) {
             editingElement = null;
-            inputText.value = ''; // Clear the input field
+            inputText.value = '';
             modalClose();
-            isEditMode = false; // Reset edit mode flag
+            isEditMode = false;
         }
     });
 
