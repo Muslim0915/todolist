@@ -225,8 +225,14 @@ header.header {
 }
 
 @media (max-width: 768px) {
-  .section__todo-list .todo__list .todo__item {
-    width: 100%;
+  .container{
+    padding: 0 10px;
+  }
+  .section__todo-list .todo__list {
+    .todo__item {
+      width: 100%;
+      margin-right: 0;
+    }
   }
   .modal{
     .modal__container{

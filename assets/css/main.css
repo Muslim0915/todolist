@@ -210,8 +210,12 @@ header.header .modal-open__btn:hover {
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
   .section__todo-list .todo__list .todo__item {
     width: 100%;
+    margin-right: 0;
   }
   .modal .modal__container {
     padding: 40px 50px 35px 40px;

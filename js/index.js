@@ -1,9 +1,9 @@
 window.addEventListener('DOMContentLoaded',()=>{
     const createButton = document.querySelector('.modal-open__btn');
     const modal = document.querySelector("#modal");
-    const inputText = document.querySelector("#input__text");
-    const saveButton = document.querySelector("#save__button");
-    const deleteButton = document.querySelector("#delete__button");
+    const inputText = document.querySelector("input");
+    const saveButton = document.querySelector(".save__button");
+    const deleteButton = document.querySelector(".delete__button");
     const todolist = document.querySelector(".todo__list");
     const modalCloseBtn = document.querySelector('.modal-close__btn');
     let editingElement = null;
