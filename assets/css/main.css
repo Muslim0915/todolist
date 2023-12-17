@@ -112,12 +112,12 @@ body {
   background-color: #ffffff;
   color: #008180;
 }
-.modal .modal__container form .form-control:last-child #delete__button {
+.modal .modal__container form .form-control:last-child .delete__button {
   margin-right: 15px;
   background: #f00;
   border: 1px solid #ff0000;
 }
-.modal .modal__container form .form-control:last-child #delete__button:hover {
+.modal .modal__container form .form-control:last-child .delete__button:hover {
   background: #ffffff;
   color: #ff0000;
 }

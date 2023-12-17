@@ -6,9 +6,9 @@ window.addEventListener('DOMContentLoaded',()=>{
     const deleteButton = document.querySelector(".delete__button");
     const todolist = document.querySelector(".todo__list");
     const modalCloseBtn = document.querySelector('.modal-close__btn');
+    const modalTitleSpan = document.querySelector(".modal-head__title span");
     let editingElement = null;
     let isEditMode = false; // Flag to track edit mode
-    const edits = document.querySelectorAll('.edit')
 
     const todos = [
         {id: 1, text: 'Learn JavaScript', completed: false},
@@ -33,6 +33,11 @@ window.addEventListener('DOMContentLoaded',()=>{
     createButton.addEventListener("click", () => {
         modalOpen();
         editingElement = null;
+        inputText.value = ''; // Clear the input field
+        isEditMode = false; // Reset edit mode flag
+        modalTitleSpan.textContent = '[Создание]';
+        inputText.classList.remove('editing');
+        inputText.classList.add('creating')
         deleteButton.classList.add('hidden');
         if (!isEditMode) {
             inputText.value = ''; // Clear the input field only if not in edit mode
@@ -52,6 +57,7 @@ window.addEventListener('DOMContentLoaded',()=>{
                 newItem.className = "todo__item";
                 newItem.innerHTML = `<span>${text}</span> <button class="edit"></button>`;
                 todolist.appendChild(newItem);
+
             }
             modalClose();
             editingElement = null;
@@ -75,16 +81,14 @@ window.addEventListener('DOMContentLoaded',()=>{
     });
 
 todolist.addEventListener("click", (event) => {
-
     if (event.target.classList.contains("edit")) {
         editingElement = event.target.parentNode;
         inputText.value = editingElement.querySelector("span").textContent;
         modalOpen();
         deleteButton.classList.remove('hidden');
-        const span = document.querySelector(".modal-head__title span");
-        span.textContent = "[Редактирование]";
-        span.classList.add('edit');
-        span.classList.remove('create');
+        modalTitleSpan.textContent = "[Редактирование]";
+        modalTitleSpan.classList.add('edit');
+        modalTitleSpan.classList.remove('create');
         isEditMode = true; // Set edit mode flag
         inputText.classList.add('editing');
         inputText.classList.remove('creating');
@@ -107,7 +111,8 @@ todolist.addEventListener("click", (event) => {
     }
 
     function modalClose() {
-        return modal.classList.remove('modal-open');
+        modal.classList.remove('modal-open');
+        removeErrors();
     }
 
     modalCloseBtn.addEventListener('click', modalClose);
@@ -119,5 +124,15 @@ todolist.addEventListener("click", (event) => {
         field.closest('.form-control').appendChild(errorElement);
     };
     renderTodoList();
+});
+function removeErrors() {
+    const errors = document.querySelectorAll('.error');
+    errors.forEach((error) => {
+        error.remove();
+    });
+    const inputError = document.querySelector('.input_errored');
+    if (inputError) {
+        inputError.classList.remove('input_errored');
 
-})
+    }
+}
