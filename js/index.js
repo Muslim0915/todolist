@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
     const createButton = document.querySelector('.modal-open__btn');
     const modal = document.querySelector("#modal");
     const inputText = document.querySelector("input");
@@ -9,12 +9,60 @@ window.addEventListener('DOMContentLoaded', () => {
     const modalTitleSpan = document.querySelector(".modal-head__title span");
     let editingElement = null;
     let isEditMode = false; // Flag to track edit mode
+    const API_URL = 'https://jsonplaceholder.typicode.com/todos?_limit=5';
+    let isLoading = false;
+    let loadingSpinner = document.querySelector('.loading__spinner');
 
-    let todos = JSON.parse(localStorage.getItem('todos')) || [
-        {id: 1, title: 'Learn JavaScript', completed: false},
-        {id: 2, title: 'Learn Vue', completed: false},
-        {id: 3, title: 'Learn React', completed: false},
+    // Переносим логику загрузки задач из локального хранилища в функцию
+    const fetchTodo = async () => {
+        try {
+            isLoading = true
+            const res = await fetch(API_URL);
+            if (!res.ok) {
+                throw new Error(`Failed to fetch tasks. Status: ${res.status}`);
+            }
+            return await res.json();
+        } catch (err) {
+            console.error(err);
+            throw err; // Передаем ошибку выше для обработки вне этой функции, если нужно
+        }
+        finally {
+            isLoading = false;
+        }
+    };
+
+// Вместо загрузки задач из локального хранилища, используем fetchTodo
+    let todos = await fetchTodo() || [
     ];
+    async function loadData() {
+        try {
+            isLoading = true;
+            todos = await fetchTodo() || todos;
+            await updateLocalStorage();
+            renderTodoList(); // Перерисовываем список после загрузки
+        } catch (error) {
+            console.error('Failed to load data:', error);
+        }
+        finally {
+            isLoading = false;
+        }
+    }
+
+// Вызываем loadData() при загрузке страницы или в другом подходящем месте
+    await loadData();
+    function showSpinner() {
+        if (isLoading){
+            loadingSpinner.classList.add('show');
+            loadingSpinner.classList.remove('hidden')
+        }
+        else{
+            loadingSpinner.classList.add('hidden');
+            loadingSpinner.classList.remove('show');
+        }
+    }
+    showSpinner();
+
+
     console.log(todos);
 
     // Function to render the to-do list
@@ -61,7 +109,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 editedTodo.title = text;
             } else {
                 // Creating a new todo
-                const newTodo = { id: Date.now(), title:text, completed: false };
+                const newTodo = {id: Date.now(), title: text, completed: false};
                 todos.push(newTodo);
             }
             modalClose();
@@ -145,7 +193,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function updateLocalStorage() {
-        localStorage.setItem('todos', JSON.stringify(todos));
+   async function updateLocalStorage() {
+        localStorage.setItem('todos', JSON.stringify(todos))
     }
 });

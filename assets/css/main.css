@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
   margin: 0;
   padding: 0;
@@ -16,8 +17,76 @@ body {
   margin: 0 auto;
 }
 
+.loading__spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none; /* Начальное скрытие */
+}
+
+.loading__spinner.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading__icon {
+  font-size: 50px;
+  color: #008180; /* Цвет спиннера */
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading__spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none; /* Начальное скрытие */
+}
+
+.loading__spinner.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loading__icon {
+  font-size: 50px;
+  color: #008180; /* Цвет спиннера */
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 .hidden {
   display: none !important;
+}
+
+.show {
+  display: block !important;
 }
 
 .modal {
