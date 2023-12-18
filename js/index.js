@@ -10,11 +10,18 @@ window.addEventListener('DOMContentLoaded',()=>{
     let editingElement = null;
     let isEditMode = false; // Flag to track edit mode
 
-    const todos = [
+    let todos = [
         {id: 1, text: 'Learn JavaScript', completed: false},
         {id: 2, text: 'Learn React', completed: false},
         {id: 3, text: 'Learn Vue', completed: false},
     ];
+    localStorage.setItem('todos', JSON.stringify(todos));
+    const savedTodos = JSON.parse(localStorage.getItem('todos'));
+
+    if (savedTodos) {
+        todos = savedTodos;
+    }
+
 
 // Function to render the to-do list
     function renderTodoList() {
@@ -26,6 +33,7 @@ window.addEventListener('DOMContentLoaded',()=>{
             newItem.innerHTML = `<span>${todo.text}</span> <button class="edit"></button>`;
             todolist.appendChild(newItem);
         });
+
     }
 
 // Call the renderTodoList function to initially render the list
@@ -36,6 +44,8 @@ window.addEventListener('DOMContentLoaded',()=>{
         inputText.value = ''; // Clear the input field
         isEditMode = false; // Reset edit mode flag
         modalTitleSpan.textContent = '[Создание]';
+        modalTitleSpan.classList.add('create');
+        modalTitleSpan.classList.remove('edit')
         inputText.classList.remove('editing');
         inputText.classList.add('creating')
         deleteButton.classList.add('hidden');
@@ -57,7 +67,8 @@ window.addEventListener('DOMContentLoaded',()=>{
                 newItem.className = "todo__item";
                 newItem.innerHTML = `<span>${text}</span> <button class="edit"></button>`;
                 todolist.appendChild(newItem);
-
+                todos.push({id: Date.now(), text, completed: false});
+                console.log(todos);
             }
             modalClose();
             editingElement = null;
@@ -124,15 +135,16 @@ todolist.addEventListener("click", (event) => {
         field.closest('.form-control').appendChild(errorElement);
     };
     renderTodoList();
-});
-function removeErrors() {
-    const errors = document.querySelectorAll('.error');
-    errors.forEach((error) => {
-        error.remove();
-    });
-    const inputError = document.querySelector('.input_errored');
-    if (inputError) {
-        inputError.classList.remove('input_errored');
+    function removeErrors() {
+        const errors = document.querySelectorAll('.error');
+        errors.forEach((error) => {
+            error.remove();
+        });
+        const inputError = document.querySelector('.input_errored');
+        if (inputError) {
+            inputError.classList.remove('input_errored');
 
+        }
     }
-}
+});
+
