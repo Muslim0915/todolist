@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded',()=>{
+window.addEventListener('DOMContentLoaded', () => {
     const createButton = document.querySelector('.modal-open__btn');
     const modal = document.querySelector("#modal");
     const inputText = document.querySelector("input");
@@ -10,33 +10,28 @@ window.addEventListener('DOMContentLoaded',()=>{
     let editingElement = null;
     let isEditMode = false; // Flag to track edit mode
 
-    let todos = [
-        {id: 1, text: 'Learn JavaScript', completed: false},
-        {id: 2, text: 'Learn React', completed: false},
-        {id: 3, text: 'Learn Vue', completed: false},
+    let todos = JSON.parse(localStorage.getItem('todos')) || [
+        {id: 1, title: 'Learn JavaScript', completed: false},
+        {id: 2, title: 'Learn Vue', completed: false},
+        {id: 3, title: 'Learn React', completed: false},
     ];
-    localStorage.setItem('todos', JSON.stringify(todos));
-    const savedTodos = JSON.parse(localStorage.getItem('todos'));
+    console.log(todos);
 
-    if (savedTodos) {
-        todos = savedTodos;
-    }
-
-
-// Function to render the to-do list
+    // Function to render the to-do list
     function renderTodoList() {
         todolist.innerHTML = ''; // Clear the existing list
 
         todos.forEach((todo) => {
             const newItem = document.createElement("div");
             newItem.className = "todo__item";
-            newItem.innerHTML = `<span>${todo.text}</span> <button class="edit"></button>`;
+            newItem.dataset.id = todo.id; // Save id in dataset attribute
+            newItem.innerHTML = `<span>${todo.title}</span> <button class="edit"></button>`;
             todolist.appendChild(newItem);
         });
-
     }
 
-// Call the renderTodoList function to initially render the list
+    // Call the renderTodoList function to initially render the list
+    renderTodoList();
 
     createButton.addEventListener("click", () => {
         modalOpen();
@@ -61,19 +56,21 @@ window.addEventListener('DOMContentLoaded',()=>{
 
         if (text.trim() !== "") {
             if (editingElement) {
-                editingElement.querySelector("span").textContent = text;
+                // Editing existing todo
+                const editedTodo = todos.find(todo => todo.id === +editingElement.dataset.id);
+                editedTodo.title = text;
             } else {
-                const newItem = document.createElement("div");
-                newItem.className = "todo__item";
-                newItem.innerHTML = `<span>${text}</span> <button class="edit"></button>`;
-                todolist.appendChild(newItem);
-                todos.push({id: Date.now(), text, completed: false});
-                console.log(todos);
+                // Creating a new todo
+                const newTodo = { id: Date.now(), title:text, completed: false };
+                todos.push(newTodo);
             }
             modalClose();
             editingElement = null;
             isEditMode = false; // Reset edit mode flag
             inputText.value = ''; // Clear the input field
+            updateLocalStorage();
+            renderTodoList();
+            console.log(todos);
         } else {
             showError(inputText, 'Заполните поле');
             inputText.classList.add('input_errored');
@@ -83,30 +80,32 @@ window.addEventListener('DOMContentLoaded',()=>{
     deleteButton.addEventListener("click", (event) => {
         event.preventDefault();
         if (editingElement) {
-            todolist.removeChild(editingElement);
+            // Deleting an existing todo
+            const deletedTodoIndex = todos.findIndex(todo => todo.id === +editingElement.dataset.id);
+            todos.splice(deletedTodoIndex, 1);
             modalClose();
             editingElement = null;
             isEditMode = false; // Reset edit mode flag
-            inputText.value =  ''; // Clear the input field
+            inputText.value = ''; // Clear the input field
+            updateLocalStorage();
+            renderTodoList();
         }
     });
 
-todolist.addEventListener("click", (event) => {
-    if (event.target.classList.contains("edit")) {
-        editingElement = event.target.parentNode;
-        inputText.value = editingElement.querySelector("span").textContent;
-        modalOpen();
-        deleteButton.classList.remove('hidden');
-        modalTitleSpan.textContent = "[Редактирование]";
-        modalTitleSpan.classList.add('edit');
-        modalTitleSpan.classList.remove('create');
-        isEditMode = true; // Set edit mode flag
-        inputText.classList.add('editing');
-        inputText.classList.remove('creating');
-    }
-});
-
-
+    todolist.addEventListener("click", (event) => {
+        if (event.target.classList.contains("edit")) {
+            editingElement = event.target.parentNode;
+            inputText.value = editingElement.querySelector("span").textContent;
+            modalOpen();
+            deleteButton.classList.remove('hidden');
+            modalTitleSpan.textContent = "[Редактирование]";
+            modalTitleSpan.classList.add('edit');
+            modalTitleSpan.classList.remove('create');
+            isEditMode = true; // Set edit mode flag
+            inputText.classList.add('editing');
+            inputText.classList.remove('creating');
+        }
+    });
 
     modal.addEventListener("click", (e) => {
         if (e.target === modal) {
@@ -134,7 +133,7 @@ todolist.addEventListener("click", (event) => {
         errorElement.textContent = message;
         field.closest('.form-control').appendChild(errorElement);
     };
-    renderTodoList();
+
     function removeErrors() {
         const errors = document.querySelectorAll('.error');
         errors.forEach((error) => {
@@ -143,8 +142,10 @@ todolist.addEventListener("click", (event) => {
         const inputError = document.querySelector('.input_errored');
         if (inputError) {
             inputError.classList.remove('input_errored');
-
         }
     }
-});
 
+    function updateLocalStorage() {
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }
+});
