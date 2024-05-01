@@ -174,6 +174,7 @@ header.header {
   margin-bottom: 50px;
 }
 header.header .container {
+  padding-inline: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -202,8 +203,10 @@ header.header .modal-open__create-btn:hover {
   font-family: "Manrope-Bold", sans-serif;
   font-size: 24px;
   line-height: 33px;
+  margin-left: 15px;
 }
 .section__todo-list .todolist__container {
+  margin-left: 15px;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
