@@ -1,0 +1,272 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+body {
+  font-family: "Manrope-Regular", sans-serif;
+  position: relative;
+  background-color: rgba(241, 241, 241, 0.9450980392);
+}
+
+.container {
+  max-width: 1630px;
+  margin: 0 auto;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+.modal {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.2784313725);
+  left: 0;
+  top: 0;
+  display: none;
+}
+.modal .modal__container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  width: 50%;
+  border-radius: 16px;
+  margin: 200px auto 0 auto;
+  background-color: #ffffff;
+  padding: 50px 64px 45px 64px;
+  z-index: 11;
+}
+.modal .modal__container .modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 57px;
+}
+.modal .modal__container .modal-head span.create {
+  color: #008180;
+}
+.modal .modal__container .modal-head span.edit {
+  color: #F4C959;
+}
+.modal .modal__container .title {
+  font-family: "Manrope-Medium", sans-serif;
+  font-size: 20px;
+  line-height: 27px;
+  color: #000000;
+}
+.modal .modal__container .modal-close__btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  background-image: url("../images/svg/close.svg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.modal .modal__container form {
+  font-family: "Manrope-Medium", sans-serif;
+}
+.modal .modal__container form label {
+  display: block;
+  margin-bottom: 4px;
+}
+.modal .modal__container form input {
+  width: 100%;
+  height: 50px;
+  padding-left: 14px;
+  font-size: 16px;
+  line-height: 26px;
+  margin-bottom: 57px;
+}
+.modal .modal__container form input.creating:focus-visible {
+  outline: #008180 auto 1px;
+}
+.modal .modal__container form input.editing:focus-visible {
+  outline: #F4C959 auto 1px;
+}
+.modal .modal__container form .form-control:last-child {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  align-items: center;
+}
+
+.main-button {
+  width: 106px;
+  height: 36px;
+  border-radius: 2px;
+  border: 1px solid #008180;
+  background-color: #008180;
+  font-family: "Manrope-SemiBold", sans-serif;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all ease-in-out 0.4s;
+}
+.main-button:hover {
+  background-color: #ffffff;
+  color: #008180;
+}
+
+.danger-button {
+  background: #f00;
+  border: 1px solid #ff0000;
+}
+.danger-button:hover {
+  background: #ffffff;
+  color: #ff0000;
+}
+
+.modal.modal-open {
+  display: block;
+}
+
+.confirm-modal {
+  background-color: rgba(0, 0, 0, 0.8) !important;
+  z-index: 12;
+}
+.confirm-modal__container {
+  background-color: #f6f6f6 !important;
+  top: 7% !important;
+}
+.confirm-modal__text {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 34px;
+}
+.confirm-modal__buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 30px;
+  gap: 30px;
+}
+
+#input__text {
+  position: relative;
+}
+
+.error {
+  color: red;
+  position: absolute;
+  left: 8%;
+  bottom: 28%;
+}
+
+input.errored {
+  border: 1px solid red;
+}
+
+header.header {
+  width: 100%;
+  background-color: #000000;
+  margin-bottom: 50px;
+}
+header.header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.0509803922);
+}
+header.header .modal-open__create-btn {
+  width: 106px;
+  height: 36px;
+  border-radius: 2px;
+  border: 1px solid #fff;
+  background: transparent;
+  cursor: pointer;
+  color: #ffffff;
+  font-family: "Manrope-SemiBold", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  transition: all ease-in-out 0.4s;
+}
+header.header .modal-open__create-btn:hover {
+  background-color: #ffffff;
+  color: #000;
+}
+
+.section__todo-list .title {
+  font-family: "Manrope-Bold", sans-serif;
+  font-size: 24px;
+  line-height: 33px;
+}
+.section__todo-list .todolist__container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.section__todo-list .todolist__container .todo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 510px;
+  height: 88px;
+  border-radius: 16px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1019607843);
+  background: #ffffff;
+  padding: 31px 0 31px 24px;
+  margin: 33px 33px 0 0;
+}
+.section__todo-list .todolist__container .todo__item .todo__item-text {
+  font-family: "Manrope-SemiBold", sans-serif;
+  font-size: 16px;
+  line-height: 26px;
+}
+.section__todo-list .todolist__container .todo__item button {
+  width: 88px;
+  height: 88px;
+  border-radius: 0 16px 16px 0;
+  border: 1px solid #F4C959;
+  cursor: pointer;
+  background-image: url("../images/svg/edit.svg");
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+  .section__todo-list .todo__list .todo__item {
+    width: 100%;
+    margin-right: 0;
+  }
+  .modal .modal__container {
+    padding: 40px 50px 35px 40px;
+    width: 90%;
+  }
+  .modal .modal__container .modal-head {
+    margin-bottom: 20px;
+  }
+  .modal .modal__container form input {
+    margin-bottom: 20px;
+    height: 40px;
+  }
+  .modal .modal__container form label {
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 425px) and (min-width: 320px) {
+  .modal .modal__container {
+    width: 100%;
+  }
+  .modal .modal__container .modal-close__btn {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/*# sourceMappingURL=main.css.map */

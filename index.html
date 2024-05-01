@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>TodoList</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="modal" class="modal">
+    <div class="modal__container">
+        <div class="modal-head">
+            <div class="modal-head__title">Задача на сегодня <span class="create"></span></div>
+            <button class="modal-close__btn" ></button>
+        </div>
+        <form class="todo__adding-form" action="#">
+            <div class="form-control">
+                <label for="input__text">Название</label>
+                <input type="text" class="input" id="input__text" placeholder="Введите текст">
+            </div>
+            <div class="form-control">
+                <button class="main-button danger-button">Удалить</button>
+                <button class="main-button save__button" type="submit">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="confirm-modal modal">
+    <div class="confirm-modal__container modal__container">
+    <p class="confirm-modal__text">
+        Вы действительно хотите удалить задачу?
+    </p>
+    <div class="confirm-modal__buttons">
+        <button class="main-button confirm-modal__cancel">Отмена</button>
+        <button class="main-button danger-button confirm-modal__confirm">Удалить</button>
+    </div>
+    </div>
+</div>
+
+<header class="header">
+    <div class="container">
+        <a class="logo" href="index.html">
+            <img
+                    alt="logo"
+                    height="15"
+                    src="assets/images/svg/logo.svg"
+                    width="62"
+            />
+        </a>
+        <button class="modal-open__create-btn" type="button">Создать</button>
+    </div>
+</header>
+<section class="section__todo-list container">
+    <h1 class="title">Список задач</h1>
+    <div class="todolist__container">
+
+    </div>
+</section>
+<script src="assets/js/index.js"></script>
+</body>
+</html>
